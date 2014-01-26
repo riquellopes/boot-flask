@@ -1,0 +1,7 @@
+*.pyc
+Procfile
+templates
+app.py
+main.py
+settings.py
+.env
