@@ -1,7 +1,27 @@
 #coding: utf-8
+"""
+	>>> import os.path
+	>>> f = FlaskBootStrap()
+	>>> f.start(False)
+	>>> if os.path.isfile('Procfile'):
+	... 	print 'ok'
+	... else:
+	... 	print 'not ok'
+	ok
+	>>> if os.path.isdir('static'):
+	... 	print 'ok'
+	... else:
+	... 	print 'not ok'
+	ok
+	>>> content = open('Procfile', 'r').read()
+	>>> if 'web: python main.py' in content:
+	... 	print 'ok'
+	... else:
+	... 	print 'not ok'
+	ok
+"""
 import os
 import sys
-
 class FlaskBootStrap:
 	_directories = ({'name':'static'}, {'name':'templates'})
 	_files = (	{'name':'Procfile', 'content':['web: python main.py']}, 
@@ -53,7 +73,8 @@ class FlaskBootStrap:
 			from subprocess import call
 			call(['foreman', 'start'])
 		else:
-			print 'Para iniciar o processo use comando:\n>>> foreman start'
+			pass
+			#print 'Para iniciar o processo use o comando:\n>>> foreman start'
 if __name__ == '__main__':
 	from optparse import OptionParser
 	parser = OptionParser()
