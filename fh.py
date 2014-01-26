@@ -3,22 +3,52 @@
 	>>> import os.path
 	>>> f = FlaskBootStrap()
 	>>> f.start(False)
-	>>> if os.path.isfile('Procfile'):
-	... 	print 'ok'
-	... else:
-	... 	print 'not ok'
+	>>> def assert_file(fileName):
+	... 	if os.path.isfile(fileName):
+	... 		print 'ok'
+	... 	else:
+	... 		print 'not ok'
+	>>> assert_file('Procfile')
 	ok
-	>>> if os.path.isdir('static'):
-	... 	print 'ok'
-	... else:
-	... 	print 'not ok'
+	>>> assert_file('app.py')
 	ok
-	>>> content = open('Procfile', 'r').read()
-	>>> if 'web: python main.py' in content:
-	... 	print 'ok'
-	... else:
-	... 	print 'not ok'
+	>>> assert_file('hifive.py')
+	not ok
+	>>> assert_file('main.py')
 	ok
+	>>> assert_file('settings.py')
+	ok
+	>>> assert_file('templates/index.html')
+	ok
+	>>> assert_file('.env')
+	ok
+	>>> def assert_dir(dirName):
+	... 	if os.path.isdir(dirName):
+	... 		print 'ok'
+	... 	else:
+	... 		print 'not ok'
+	>>> assert_dir('static')
+	ok
+	>>> assert_dir('templates')
+	ok
+	>>> assert_dir('hifive')
+	not ok
+	>>> def assert_content(file_name, value):
+	... 	content = open(file_name, 'r').read()
+	... 	if value in content:
+	... 		print 'ok'
+	... 	else:
+	... 		print 'not ok'
+	>>> FlaskBootStrap._files[0].get('name')
+	'Procfile'
+	>>> content=''.join(FlaskBootStrap._files[0].get('content'))
+	>>> assert_content(FlaskBootStrap._files[0].get('name'), content)
+	ok
+	>>> assert_content('templates/index.html', '<h1>Hello World</h1>')
+	ok
+	>>> import os
+	>>> os.system('rm *.pyc; rm -r static; rm -r templates; rm settings.py; rm main.py; rm app.py; rm Procfile; rm .env')
+	0
 """
 import os
 import sys
@@ -42,26 +72,21 @@ class FlaskBootStrap:
 											'if __name__ == "__main__":', 
 											'\tport = int(os.environ.get("PORT", 5000))', 
 											'\tapp.run(host="0.0.0.0", port=port)']},
-				{'name':'templates/index.html', 'content':['<h1>Hello World</h1>']}
+				{'name':'templates/index.html', 'content':['<h1>Hello World</h1>']},
+				{'name':'.env', 'content':''}
 	)
 	
 	def _create_files(self):
-		"""
-			Método cria os arquivos.
-		"""
 		for _file in self._files:
 			try:
 				handle = open(_file.get('name'), 'w+')
 				handle.write( "\n".join(_file.get('content')) )
 				handle.close()
 			except IOError:
-				print "Erro ao criar arquivo. >>>", _file.get('name')
+				print "Error >>>", _file.get('name')
 				sys.exit(1)
 				
 	def _create_directories(self):
-		"""
-			Método cria diretórios básicos do projeto.
-		"""
 		for directory in self._directories:
 			if not os.path.isdir(directory.get('name')):
 				os.makedirs(directory.get('name'))
@@ -74,7 +99,6 @@ class FlaskBootStrap:
 			call(['foreman', 'start'])
 		else:
 			pass
-			#print 'Para iniciar o processo use o comando:\n>>> foreman start'
 if __name__ == '__main__':
 	from optparse import OptionParser
 	parser = OptionParser()
