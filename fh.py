@@ -39,19 +39,26 @@ class FlaskBootStrap:
 				sys.exit(1)
 				
 	def _create_directories(self):
+		"""
+			Método cria diretórios básicos do projeto.
+		"""
 		for directory in self._directories:
 			if not os.path.isdir(directory.get('name')):
 				os.makedirs(directory.get('name'))
 	
-	def start(self):
+	def start(self, auto_exec=True):
 		self._create_directories()
 		self._create_files()
-		command = """
-		Para iniciar o processo basta executar o comando:
-		>>> foreman start
-		"""
-		print command
-		
+		if auto_exec:
+			from subprocess import call
+			call(['foreman', 'start'])
+		else:
+			print 'Para iniciar o processo use comando:\n>>> foreman start'
 if __name__ == '__main__':
+	from optparse import OptionParser
+	parser = OptionParser()
+	parser.add_option('-a', '--auto-exec', action="store_true", default=False)
+	(options, args) = parser.parse_args()
+	
 	f = FlaskBootStrap()
-	f.start()
+	f.start(auto_exec=options.auto_exec)
