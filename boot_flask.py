@@ -1,7 +1,7 @@
 #coding: utf-8
 """
 	>>> import os.path
-	>>> f = FlaskBootStrap()
+	>>> f = BootFlask()
 	>>> f.start(False)
 	>>> def assert_file(fileName):
 	... 	if os.path.isfile(fileName):
@@ -39,7 +39,7 @@
 	... 		print 'ok'
 	... 	else:
 	... 		print 'not ok'
-	>>> FlaskBootStrap._files[0].get('name')
+	>>> BootFlask._files[0].get('name')
 	'Procfile'
 	>>> content=''.join(FlaskBootStrap._files[0].get('content'))
 	>>> assert_content(FlaskBootStrap._files[0].get('name'), content)
@@ -52,7 +52,7 @@
 """
 import os
 import sys
-class FlaskBootStrap:
+class BootFlask:
 	_directories = ({'name':'static'}, {'name':'templates'})
 	_files = (	{'name':'Procfile', 'content':['web: python main.py']}, 
 				{'name':'app.py', 
@@ -105,5 +105,5 @@ if __name__ == '__main__':
 	parser.add_option('-a', '--auto-exec', action="store_true", default=False)
 	(options, args) = parser.parse_args()
 	
-	f = FlaskBootStrap()
+	f = BootFlask()
 	f.start(auto_exec=options.auto_exec)
