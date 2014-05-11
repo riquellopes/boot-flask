@@ -24,7 +24,7 @@ setup(
 	author_email="contato@henriquelopes.com.br",
 	version='0.1',
 	name="BootFlask",
-	url="https://github.com/riquellopes/flask-hello",
+	url="https://github.com/riquellopes/boot-flask",
 	packages=['boot_flask'],
 	platforms=['python >= 2.7'],
 	description="A simple tool for turn your flask projects more quick and fun.",
