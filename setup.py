@@ -7,9 +7,6 @@
 import sys
 from setuptools import setup
 
-#PATH="{0}/python{1}/site-packages/".format(sys.prefix, sys.version[:3])
-#print PATH
-#sys.exit(1)
 if sys.version_info[0] == 2 and sys.version_info[1] < 7:
 	print "Sorry, BootFlask doesn't suporte python version minor that 2.7."
 	sys.exit(1)
