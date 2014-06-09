@@ -16,6 +16,12 @@ Installation:
 pip install BootFlask
 ```
 
+or
+
+```sh
+pip install https://github.com/riquellopes/boot-flask/tarball/master
+```
+
 CookBook:
 -------------
 ```sh
