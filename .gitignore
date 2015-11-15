@@ -9,3 +9,5 @@ settings.py
 dist
 build
 BootFlask.egg-info
+.cache
+helloworld
