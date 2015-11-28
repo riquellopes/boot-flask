@@ -1,14 +1,11 @@
-from __future__ import unicode_literals
-import sys
 import os
 from inspect import getdoc
-from boot_flask_base import BootFlaskBase
+from boot_flask_base import BootFlaskBase, BootFlaskException
 
 
 class BootFlaskFile(BootFlaskBase):
     __name__ = ""
-    __doc__ = """
-    """
+    __doc__ = """"""
 
     def __init__(self, project_name, stop=True):
         self._project_name = project_name
@@ -19,12 +16,10 @@ class BootFlaskFile(BootFlaskBase):
         try:
             file_name = self.path_generation(self.__name__)
             handle = open(file_name, "w+")
-            handle.write(self._content)
+            handle.write(str(self._content))
             handle.close()
         except IOError as e:
-            print "Error >>> %s" % str(e.message)
-            if self._stop:
-                sys.exit(1)
+            raise BootFlaskException(e.message)
 
     def remove(self):
         file_name = self.path_generation(self.__name__)
@@ -48,8 +43,7 @@ class BootFlaskApp(BootFlaskFile):
 
 class BootFlaskEnv(BootFlaskFile):
     __name__ = ".env"
-    """
-    """
+    __doc__ = """"""
 
 
 class BootFlaskHtmlIndex(BootFlaskFile):
@@ -72,7 +66,7 @@ class BootFlaskMain(BootFlaskFile):
 
 
 class BootFlaskProcfile(BootFlaskFile):
-    __name__ = "Procfile.py"
+    __name__ = "Procfile"
     __doc__ = """
         web: python main.py
     """
@@ -80,5 +74,4 @@ class BootFlaskProcfile(BootFlaskFile):
 
 class BootFlaskSettings(BootFlaskFile):
     __name__ = "settings.py"
-    __doc__ = """
-    """
+    __doc__ = """"""

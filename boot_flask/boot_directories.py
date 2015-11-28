@@ -1,7 +1,7 @@
+from __future__ import absolute_import
 import os
-from boot_flask_base import BootFlaskBase
-from boot_file import BootFlaskFile
-from . import BootFlaskException
+from .boot_flask_base import BootFlaskBase, BootFlaskException
+from .boot_file import BootFlaskFile
 
 
 class BootDirectories(BootFlaskBase):
@@ -13,7 +13,7 @@ class BootDirectories(BootFlaskBase):
     def create(self):
         name_package = self.path_generation(self.name)
         if not os.path.isdir(name_package):
-            os.makedirs(name_package)
+            os.mkdir(name_package)
 
     def destroy(self):
         name_package = self.path_generation(self.name)
@@ -37,7 +37,7 @@ class BootDirectories(BootFlaskBase):
                 if hasattr(bran, "__pieces__"):
                     bran.go("{0}/{1}".format(self._project_name, bran.name))
             elif issubclass(piece, BootFlaskFile):
-                bran = piece(path)
+                bran = piece(path if path else self._project_name)
                 bran.write()
 
     def __str__(self):
@@ -63,6 +63,11 @@ class BootFlaskProject(BootDirectories):
             raise BootFlaskException(
                 "Exist one folder with name '{0}'.".format(self._project_name))
         super(BootFlaskProject, self).create()
+
+    def go(self, path=None):
+        if isinstance(self, BootFlaskProject):
+            self.create()
+        super(BootFlaskProject, self).go(path)
 
     def __str__(self):
         return self._project_name

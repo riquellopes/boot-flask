@@ -1,6 +1,10 @@
 import os
 
 
+class BootFlaskException(Exception):
+    pass
+
+
 class BootFlaskBase(object):
 
     def path_generation(self, file_name):

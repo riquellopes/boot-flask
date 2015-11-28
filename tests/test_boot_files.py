@@ -1,10 +1,10 @@
 import os.path
 from boot_flask.boot_file import BootFlaskApp
-from boot_flask.boot_directories import BootFlaskMain
+from boot_flask.boot_directories import BootFlaskProject
 
 
 def test_build_boot_flask_app():
-    main = BootFlaskMain("hello")
+    main = BootFlaskProject("hello")
     main.create()
     app = BootFlaskApp("hello", stop=False)
     app.write()
