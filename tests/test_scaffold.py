@@ -12,4 +12,5 @@ def test_scaffold():
     project.go()
     assert os.path.isdir("blog")
     assert os.path.isdir("blog/static")
+    assert os.path.isfile("blog/templates/index.html")
     project.destroy()

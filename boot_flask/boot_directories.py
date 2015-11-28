@@ -18,7 +18,7 @@ class BootDirectories(BootFlaskBase):
     def destroy(self):
         name_package = self.path_generation(self.name)
         if os.path.isdir(name_package):
-            os.removedirs(name_package)
+            os.system("rm -rf %s" % name_package)
 
     @classmethod
     def add(cls, *args):
@@ -29,16 +29,15 @@ class BootDirectories(BootFlaskBase):
                 getattr(cls, "__pieces__").append(piece)
         return cls
 
-    def go(self):
+    def go(self, path=None):
         for piece in self.__pieces__:
             if issubclass(piece, BootDirectories):
                 bran = piece(self._project_name)
                 bran.create()
                 if hasattr(bran, "__pieces__"):
-                    # @TODO Salvar no diretorio correto.
-                    bran.go()
+                    bran.go("{0}/{1}".format(self._project_name, bran.name))
             elif issubclass(piece, BootFlaskFile):
-                bran = piece(self._project_name)
+                bran = piece(path)
                 bran.write()
 
     def __str__(self):
