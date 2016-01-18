@@ -75,3 +75,12 @@ class BootFlaskProcfile(BootFlaskFile):
 class BootFlaskSettings(BootFlaskFile):
     __name__ = "settings.py"
     __doc__ = """"""
+
+
+class BootFlaskRequiriments(BootFlaskFile):
+    __name__ = "requirements.txt"
+    __doc__ = """"""
+
+    def write(self):
+        self.__doc__ = os.popen("pip freeze").read()
+        super(BootFlaskRequiriments, self).write()

@@ -6,7 +6,7 @@ from .boot_directories import (
     BootFlaskStatic, BootFlaskProject, BootFlaskTemplates)
 from .boot_file import (
     BootFlaskApp, BootFlaskEnv, BootFlaskHtmlIndex, BootFlaskMain,
-    BootFlaskProcfile, BootFlaskSettings)
+    BootFlaskProcfile, BootFlaskSettings, BootFlaskRequiriments)
 
 
 class BootFlask:
@@ -18,6 +18,7 @@ class BootFlask:
             BootFlaskEnv,
             BootFlaskMain,
             BootFlaskProcfile,
+            BootFlaskRequiriments,
             BootFlaskSettings,
             BootFlaskStatic,
             BootFlaskTemplates.add(BootFlaskHtmlIndex)
