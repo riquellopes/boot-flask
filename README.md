@@ -1,5 +1,6 @@
 BootFlask
 =========
+[![Build Status](https://travis-ci.org/riquellopes/boot-flask.svg?branch=master)](https://travis-ci.org/riquellopes/boot-flask)
 
 A simple tool for turn your flask projects more quick and fun..
 
@@ -27,7 +28,3 @@ CookBook:
 ```sh
 bootflask -p HelloWold
 ```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/riquellopes/boot-flask/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
