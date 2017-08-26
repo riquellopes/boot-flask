@@ -1,6 +1,7 @@
 BootFlask
 =========
 [![Build Status](https://travis-ci.org/riquellopes/boot-flask.svg?branch=master)](https://travis-ci.org/riquellopes/boot-flask)
+[![Coverage Status](https://coveralls.io/repos/github/riquellopes/boot-flask/badge.svg)](https://coveralls.io/github/riquellopes/boot-flask)
 
 A simple tool for turn your flask projects more quick and fun..
 
