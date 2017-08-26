@@ -11,3 +11,4 @@ build
 BootFlask.egg-info
 .cache
 helloworld
+.coverage
