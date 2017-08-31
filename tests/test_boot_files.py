@@ -1,5 +1,5 @@
 import os.path
-from boot_flask.boot_file import BootFlaskApp, BootFlaskRequiriments
+from boot_flask.boot_web import BootFlaskApp, BootFlaskRequiriments
 from boot_flask.boot_directories import BootFlaskProject
 
 

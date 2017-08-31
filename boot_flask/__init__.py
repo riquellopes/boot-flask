@@ -2,11 +2,26 @@
 from __future__ import absolute_import
 from optparse import OptionParser
 from subprocess import call
-from .boot_directories import (
-    BootFlaskStatic, BootFlaskProject, BootFlaskTemplates)
-from .boot_file import (
-    BootFlaskApp, BootFlaskEnv, BootFlaskHtmlIndex, BootFlaskMain,
-    BootFlaskProcfile, BootFlaskSettings, BootFlaskRequiriments)
+
+from .boot_directories import BootFlaskStatic, BootFlaskProject, BootFlaskTemplates
+# from .boot_api import (
+#     BootFlasApi,
+#     BootFlaskSampleResource,
+#     BootFlaskModel,
+#     BootFlaskSchema,
+#     BootFlaskDB,
+#     BootFlaskApiInit
+# )
+
+from boot_web import (
+    BootFlaskApp,
+    BootFlaskEnv,
+    BootFlaskHtmlIndex,
+    BootFlaskMain,
+    BootFlaskProcfile,
+    BootFlaskSettings,
+    BootFlaskRequiriments
+)
 
 
 class BootFlask:
