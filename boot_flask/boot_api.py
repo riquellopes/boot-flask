@@ -103,6 +103,25 @@ class BootFlaskApiInit(BootFlaskFile):
     """
 
 
+class BootFlaskProcfile(BootFlaskProcfile):
+    __doc__ = """
+        web: python run.py
+    """
+
+
+class BootFlaskRun(BootFlaskFile):
+    __name__ = "run.py"
+    __doc__ = """
+        import os
+        from app.api import app
+
+
+        if __name__ == "__main__":
+            port = int(os.environ.get("PORT", 5000))
+            app.run(host="0.0.0.0", port=port)
+    """
+
+
 class BootFlaskProjectApi(BootFlaskProject):
 
     @classmethod
@@ -112,6 +131,7 @@ class BootFlaskProjectApi(BootFlaskProject):
             BootFlaskEnv,
             BootFlaskSettings,
             BootFlaskProcfile,
+            BootFlaskRun,
             BootFlaskApp.add(BootFlaskApiInit,
                              BootFlasApi,
                              BootFlaskSampleResource,
@@ -120,3 +140,6 @@ class BootFlaskProjectApi(BootFlaskProject):
                              BootFlaskDB)
         )
         return project
+
+    def auto_exec(self, name):
+        super(BootFlaskProjectApi, self).auto_exec("run")

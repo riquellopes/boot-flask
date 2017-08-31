@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
 from optparse import OptionParser
-from subprocess import call
 
 
 from boot_web import BootFlaskProjectWeb
@@ -19,7 +18,7 @@ class BootFlask:
     def start(self, auto_exec=False):
         self.project.go()
         if auto_exec:
-            call(["python", "app.py"])
+            self.project.auto_exec()
 
 
 def main():

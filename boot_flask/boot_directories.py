@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import os
+from subprocess import call
 from .boot_flask_base import BootFlaskBase, BootFlaskException
 from .boot_file import BootFlaskFile
 
@@ -64,6 +65,9 @@ class BootFlaskProject(BootDirectories):
     @classmethod
     def setup(cls, name):
         return cls(name)
+
+    def auto_exec(self, name="app"):
+        call(["python", "{}.py".format(name)])
 
     def __str__(self):
         return self._project_name
