@@ -1,6 +1,6 @@
 import os
 from boot_flask.boot_file import BootFlaskFile
-from boot_flask.boot_directories import BootFlaskProject, BootFlaskStatic, BootFlaskTemplates
+from boot_flask.boot_directories import BootFlaskProject, BootDirectories
 
 
 class BootFlaskApp(BootFlaskFile):
@@ -60,6 +60,14 @@ class BootFlaskRequiriments(BootFlaskFile):
     def write(self):
         self.__doc__ = os.popen("pip freeze").read()
         super(BootFlaskRequiriments, self).write()
+
+
+class BootFlaskStatic(BootDirectories):
+    name = "static"
+
+
+class BootFlaskTemplates(BootDirectories):
+    name = "templates"
 
 
 class BootFlaskProjectWeb(BootFlaskProject):

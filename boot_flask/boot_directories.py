@@ -44,14 +44,6 @@ class BootDirectories(BootFlaskBase):
         return self.name
 
 
-class BootFlaskStatic(BootDirectories):
-    name = "static"
-
-
-class BootFlaskTemplates(BootDirectories):
-    name = "templates"
-
-
 class BootFlaskProject(BootDirectories):
 
     def __init__(self, project_name):
