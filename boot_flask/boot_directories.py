@@ -69,5 +69,9 @@ class BootFlaskProject(BootDirectories):
             self.create()
         super(BootFlaskProject, self).go(path)
 
+    @classmethod
+    def setup(cls, name):
+        return cls(name)
+
     def __str__(self):
         return self._project_name

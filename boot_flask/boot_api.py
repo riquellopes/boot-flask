@@ -1,4 +1,11 @@
 from boot_flask.boot_file import BootFlaskFile
+from boot_flask.boot_directories import BootDirectories
+from boot_flask.boot_directories import BootFlaskProject
+from boot_flask.boot_web import BootFlaskEnv, BootFlaskSettings, BootFlaskProcfile
+
+
+class BootFlaskApp(BootDirectories):
+    name = "app"
 
 
 class BootFlasApi(BootFlaskFile):
@@ -94,3 +101,22 @@ class BootFlaskApiInit(BootFlaskFile):
         app = Flask(__name__)
         app.config.from_object("settings")
     """
+
+
+class BootFlaskProjectApi(BootFlaskProject):
+
+    @classmethod
+    def setup(cls, name):
+        project = cls(name)
+        project.add(
+            BootFlaskEnv,
+            BootFlaskSettings,
+            BootFlaskProcfile,
+            BootFlaskApp.add(BootFlaskApiInit,
+                             BootFlasApi,
+                             BootFlaskSampleResource,
+                             BootFlaskModel,
+                             BootFlaskSchema,
+                             BootFlaskDB)
+        )
+        return project

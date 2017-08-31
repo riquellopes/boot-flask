@@ -3,41 +3,18 @@ from __future__ import absolute_import
 from optparse import OptionParser
 from subprocess import call
 
-from .boot_directories import BootFlaskStatic, BootFlaskProject, BootFlaskTemplates
-# from .boot_api import (
-#     BootFlasApi,
-#     BootFlaskSampleResource,
-#     BootFlaskModel,
-#     BootFlaskSchema,
-#     BootFlaskDB,
-#     BootFlaskApiInit
-# )
 
-from boot_web import (
-    BootFlaskApp,
-    BootFlaskEnv,
-    BootFlaskHtmlIndex,
-    BootFlaskMain,
-    BootFlaskProcfile,
-    BootFlaskSettings,
-    BootFlaskRequiriments
-)
+from boot_web import BootFlaskProjectWeb
+from boot_api import BootFlaskProjectApi
 
 
 class BootFlask:
 
-    def __init__(self, project_name=""):
-        self.project = BootFlaskProject(project_name)
-        self.project.add(
-            BootFlaskApp,
-            BootFlaskEnv,
-            BootFlaskMain,
-            BootFlaskProcfile,
-            BootFlaskRequiriments,
-            BootFlaskSettings,
-            BootFlaskStatic,
-            BootFlaskTemplates.add(BootFlaskHtmlIndex)
-        )
+    def __init__(self, project_name="", type=""):
+        project = BootFlaskProjectWeb
+        if type == "api":
+            project = BootFlaskProjectApi
+        self.project = project.setup(project_name)
 
     def start(self, auto_exec=False):
         self.project.go()
@@ -49,9 +26,10 @@ def main():
     parser = OptionParser()
     parser.add_option('-a', '--auto-exec', action="store_true", default=False)
     parser.add_option('-p', '--project-name', default='')
+    parser.add_option('-t', '--type-project', default='web')
     (options, args) = parser.parse_args()
 
-    boot = BootFlask(options.project_name)
+    boot = BootFlask(options.project_name, options.type_project)
     boot.start(auto_exec=options.auto_exec)
 
 if __name__ == "__main__":
