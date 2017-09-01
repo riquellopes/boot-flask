@@ -124,6 +124,30 @@ class BootFlaskRun(BootFlaskFile):
     """
 
 
+class BootFlaskRequiriments(BootFlaskFile):
+    __name__ = "requirements.txt"
+    __doc__ = """
+    Flask==0.12.2
+    Flask-RESTful==0.3.6
+    Flask-SQLAlchemy==2.2
+    marshmallow==2.13.5
+    marshmallow-sqlalchemy==0.13.1
+    SQLAlchemy==1.1.13
+    webargs==1.8.1
+    """
+
+
+class BootFlaskRequirimentsDev(BootFlaskFile):
+    __name__ = "requirements_dev.txt"
+    __doc__ = """
+    -r requirements.txt
+    ipdb==0.10.3
+    ipython==6.1.0
+    pytest==3.2.1
+    factory-boy==2.9.2
+    pytest-cov==2.5.1
+    """
+
 class BootFlaskProjectApi(BootFlaskProject):
 
     @classmethod
@@ -134,6 +158,8 @@ class BootFlaskProjectApi(BootFlaskProject):
             BootFlaskSettings,
             BootFlaskProcfile,
             BootFlaskRun,
+            BootFlaskRequiriments,
+            BootFlaskRequirimentsDev,
             BootFlaskApp.add(BootFlaskApiInit,
                              BootFlasApi,
                              BootFlaskSampleResource,
