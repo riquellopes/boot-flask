@@ -3,8 +3,8 @@ from __future__ import absolute_import
 from optparse import OptionParser
 
 
-from boot_web import BootFlaskProjectWeb
-from boot_api import BootFlaskProjectApi
+from .boot_web import BootFlaskProjectWeb
+from .boot_api import BootFlaskProjectApi
 
 
 class BootFlask:

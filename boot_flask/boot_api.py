@@ -16,6 +16,7 @@ class BootFlasApi(BootFlaskFile):
         from app.db import db
         from app.resources import SampleResource
 
+
         def setup_app():
             db.init_app(application)
 
@@ -63,6 +64,7 @@ class BootFlaskModel(BootFlaskFile):
     __doc__ = """
         from app.db import db
 
+
         class SampleModel(db.Model):
             id = db.Column(db.Integer, primary_key=True, autoincrement=True)
             name = db.Column(db.String(100), nullable=False, unique=True)
@@ -72,10 +74,10 @@ class BootFlaskModel(BootFlaskFile):
 class BootFlaskSchema(BootFlaskFile):
     __name__ = "schemas.py"
     __doc__ = """
-        from marshmallow import fields
         from marshmallow_sqlalchemy import ModelSchema
         from app.models import SampleModel
         from app.db import db
+
 
         class SampleSchema(ModelSchema):
             class Meta:
