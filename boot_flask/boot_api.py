@@ -16,6 +16,7 @@ class BootFlasApi(BootFlaskFile):
         from app.db import db
         from app.resources import SampleResource
 
+
         def setup_app():
             db.init_app(application)
 
@@ -63,6 +64,7 @@ class BootFlaskModel(BootFlaskFile):
     __doc__ = """
         from app.db import db
 
+
         class SampleModel(db.Model):
             id = db.Column(db.Integer, primary_key=True, autoincrement=True)
             name = db.Column(db.String(100), nullable=False, unique=True)
@@ -72,10 +74,10 @@ class BootFlaskModel(BootFlaskFile):
 class BootFlaskSchema(BootFlaskFile):
     __name__ = "schemas.py"
     __doc__ = """
-        from marshmallow import fields
         from marshmallow_sqlalchemy import ModelSchema
         from app.models import SampleModel
         from app.db import db
+
 
         class SampleSchema(ModelSchema):
             class Meta:
@@ -122,17 +124,30 @@ class BootFlaskRun(BootFlaskFile):
     """
 
 
+class BootFlaskRequiriments(BootFlaskFile):
+    __name__ = "requirements.txt"
+    __doc__ = """
+    Flask==0.12.2
+    Flask-RESTful==0.3.6
+    Flask-SQLAlchemy==2.2
+    marshmallow==2.13.5
+    marshmallow-sqlalchemy==0.13.1
+    SQLAlchemy==1.1.13
+    webargs==1.8.1
+    """
+
+
 # TEST CONFIGURATIONS
+class BootFlaskTests(BootDirectories):
+    name = "tests"
+
+
 class BootFlaskPyTestFile(BootFlaskFile):
     __name__ = "pytest.ini"
     __doc__ = """
         [pytest]
         norecursedirs= .git
     """
-
-
-class BootFlaskTests(BootDirectories):
-    name = "tests"
 
 
 class BootFlaskTestInit(BootFlaskFile):
@@ -183,6 +198,54 @@ class BootFlaskTestConf(BootFlaskFile):
     """
 
 
+class BootFlaskTestFactories(BootFlaskFile):
+    __name__ = "factories.py"
+    __doc__ = """
+    from app.db import db
+    from factory import SubFactory, Sequence
+    from factory.alchemy import SQLAlchemyModelFactory as Factory
+    from app.models import SampleModel
+
+    class SampleModelFactory(Factory):
+        class Meta:
+            model = SampleModel
+            sqlalchemy_session = db.session
+    """
+
+
+class BootFlaskTestSample(BootFlaskFile):
+    __name__ = "test_sample.py"
+    __doc__ = """
+    import json
+    import pytest
+    from .factories import SampleModelFactory
+
+    @pytest.fixture
+    def sample_model():
+        return SampleModelFactory.create_batch(3)
+
+    def test_(test_client, sample_model):
+        response = test_client.get("/v1/sample/")
+
+        assert response.status_code == 200
+        data = json.loads(response.data.decode('utf-8'))
+
+        assert len(data.get("results")) == 3
+    """
+
+
+class BootFlaskRequirimentsDev(BootFlaskFile):
+    __name__ = "requirements_dev.txt"
+    __doc__ = """
+    -r requirements.txt
+    ipdb==0.10.3
+    ipython==6.1.0
+    pytest==3.2.1
+    factory-boy==2.9.2
+    pytest-cov==2.5.1
+    """
+
+
 class BootFlaskProjectApi(BootFlaskProject):
 
     @classmethod
@@ -193,6 +256,15 @@ class BootFlaskProjectApi(BootFlaskProject):
             BootFlaskSettings,
             BootFlaskProcfile,
             BootFlaskRun,
+            BootFlaskRequiriments,
+            BootFlaskRequirimentsDev,
+            BootFlaskPyTestFile,
+            BootFlaskTests.add(
+                BootFlaskTestInit,
+                BootFlaskTestConf,
+                BootFlaskTestFactories,
+                BootFlaskTestSample
+            ),
             BootFlaskApp.add(BootFlaskApiInit,
                              BootFlasApi,
                              BootFlaskSampleResource,
