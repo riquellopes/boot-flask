@@ -1,6 +1,6 @@
 import os
 from inspect import getdoc
-from boot_flask_base import BootFlaskBase, BootFlaskException
+from .boot_flask_base import BootFlaskBase, BootFlaskException
 
 
 # WEB

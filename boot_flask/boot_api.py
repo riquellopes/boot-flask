@@ -202,9 +202,9 @@ class BootFlaskTestFactories(BootFlaskFile):
     __name__ = "factories.py"
     __doc__ = """
     from app.db import db
-    from factory import SubFactory, Sequence
     from factory.alchemy import SQLAlchemyModelFactory as Factory
     from app.models import SampleModel
+
 
     class SampleModelFactory(Factory):
         class Meta:
@@ -220,9 +220,11 @@ class BootFlaskTestSample(BootFlaskFile):
     import pytest
     from .factories import SampleModelFactory
 
+
     @pytest.fixture
     def sample_model():
         return SampleModelFactory.create_batch(3)
+
 
     def test_(test_client, sample_model):
         response = test_client.get("/v1/sample/")
