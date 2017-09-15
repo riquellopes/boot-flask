@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import os
+from subprocess import call
 from .boot_flask_base import BootFlaskBase, BootFlaskException
 from .boot_file import BootFlaskFile
 
@@ -44,14 +45,6 @@ class BootDirectories(BootFlaskBase):
         return self.name
 
 
-class BootFlaskStatic(BootDirectories):
-    name = "static"
-
-
-class BootFlaskTemplates(BootDirectories):
-    name = "templates"
-
-
 class BootFlaskProject(BootDirectories):
 
     def __init__(self, project_name):
@@ -68,6 +61,13 @@ class BootFlaskProject(BootDirectories):
         if isinstance(self, BootFlaskProject):
             self.create()
         super(BootFlaskProject, self).go(path)
+
+    @classmethod
+    def setup(cls, name):
+        return cls(name)
+
+    def auto_exec(self, name="app"):
+        call(["python", "{}.py".format(name)])
 
     def __str__(self):
         return self._project_name

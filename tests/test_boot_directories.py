@@ -1,5 +1,6 @@
 import os.path
-from boot_flask.boot_directories import BootFlaskStatic, BootFlaskProject
+from boot_flask.boot_directories import BootFlaskProject
+from boot_flask.boot_web import BootFlaskStatic
 
 
 def test_build_boot_directories():

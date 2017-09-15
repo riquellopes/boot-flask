@@ -1,7 +1,6 @@
 import os.path
-from boot_flask.boot_directories import (
-    BootFlaskStatic, BootFlaskProject, BootFlaskTemplates)
-from boot_flask.boot_file import BootFlaskHtmlIndex
+from boot_flask.boot_directories import BootFlaskProject
+from boot_flask.boot_web import BootFlaskHtmlIndex, BootFlaskStatic, BootFlaskTemplates
 
 
 def test_scaffold():
