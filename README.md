@@ -28,6 +28,6 @@ CookBook:
 -------------
 ```sh
 bootflask -h
-bootflask -p HelloWold # simple web project
+bootflask -p HelloWold # sample web project
 bootflask -p Backend -t api # sample api web
 ```
