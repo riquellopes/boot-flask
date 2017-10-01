@@ -1,7 +1,7 @@
 """
     BootFlask
 
-    A simple tool for turn your flask aplication more quick and fun.
+    A simple tool to make your Flask aplication quicker and fun.
 """
 from setuptools import setup
 
