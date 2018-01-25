@@ -264,7 +264,7 @@ class BootFlaskDockerCompose(BootFlaskFile):
                 - 8000:5000
             volumes:
                 - ./vendor:/pythonvendor
-                - .:/usr/src/app
+            - .:/usr/src/app
     """
 
 class BootFlaskRequirimentsDev(BootFlaskFile):
@@ -298,6 +298,8 @@ class BootFlaskProjectApi(BootFlaskProject):
                 BootFlaskTestFactories,
                 BootFlaskTestSample
             ),
+            BootFlaskDockerCompose,
+            BootFlaskDockerFile,
             BootFlaskApp.add(BootFlaskApiInit,
                              BootFlasApi,
                              BootFlaskSampleResource,

@@ -22,6 +22,8 @@ def test_create_project():
     assert os.path.isfile('backend/app/schemas.py')
     assert os.path.isfile('backend/.env')
     assert os.path.isfile('backend/Procfile')
+    assert os.path.isfile('backend/Dockerfile')
+    assert os.path.isfile('backend/docker-compose.yml')
     backend.project.destroy()
 
 
