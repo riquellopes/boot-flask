@@ -49,6 +49,7 @@ class BootFlaskProject(BootDirectories):
 
     def __init__(self, project_name):
         assert project_name, "The name project it's necessary to create app."
+        self._project_name = project_name
         super(BootFlaskProject, self).__init__(project_name)
 
     def create(self):

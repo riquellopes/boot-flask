@@ -247,13 +247,13 @@ class BootFlaskDockerFile(BootFlaskFile):
     RUN pip install -r requirements.txt
     """
 
-class BootFlaskDockerCompose(BootFlaskFile):
+class BootFlaskDockerCompose(BootFlaskFile): 
     __name__ = "docker-compose.yml"
     __doc__ = """"
     version: '2'
     services:
         web:
-            container_name: flask-api-1
+            container_name: {project_name}
             build: .
             image: flask-api
             working_dir: /usr/src/app
@@ -263,8 +263,7 @@ class BootFlaskDockerCompose(BootFlaskFile):
             ports:
                 - 8000:5000
             volumes:
-                - ./vendor:/pythonvendor
-            - .:/usr/src/app
+                - .:/usr/src/app
     """
 
 class BootFlaskRequirimentsDev(BootFlaskFile):
