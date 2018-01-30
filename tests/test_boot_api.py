@@ -22,6 +22,15 @@ def test_create_project():
     assert os.path.isfile('backend/app/schemas.py')
     assert os.path.isfile('backend/.env')
     assert os.path.isfile('backend/Procfile')
+    assert os.path.isfile('backend/Dockerfile')
+    assert os.path.isfile('backend/docker-compose.yml')
+    backend.project.destroy()
+
+def test_container_name():
+    backend = BootFlask("backend", type="api")
+    backend.start(False)
+
+    assert 'backend' in open('backend/docker-compose.yml').read()
     backend.project.destroy()
 
 

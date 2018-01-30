@@ -235,6 +235,36 @@ class BootFlaskTestSample(BootFlaskFile):
         assert len(data.get("results")) == 3
     """
 
+class BootFlaskDockerFile(BootFlaskFile):
+    __name__ = "Dockerfile"
+    __doc__ = """
+    FROM python:3.7.0a4-alpine3.7
+
+    WORKDIR /usr/src/app
+
+    COPY . .
+
+    RUN pip install -r requirements.txt
+    """
+
+class BootFlaskDockerCompose(BootFlaskFile): 
+    __name__ = "docker-compose.yml"
+    __doc__ = """"
+    version: '2'
+    services:
+        web:
+            container_name: {project_name}
+            build: .
+            image: flask-api
+            working_dir: /usr/src/app
+            command: 'python run.py'
+            expose:
+                - 5000
+            ports:
+                - 8000:5000
+            volumes:
+                - .:/usr/src/app
+    """
 
 class BootFlaskRequirimentsDev(BootFlaskFile):
     __name__ = "requirements_dev.txt"
@@ -267,6 +297,8 @@ class BootFlaskProjectApi(BootFlaskProject):
                 BootFlaskTestFactories,
                 BootFlaskTestSample
             ),
+            BootFlaskDockerCompose,
+            BootFlaskDockerFile,
             BootFlaskApp.add(BootFlaskApiInit,
                              BootFlasApi,
                              BootFlaskSampleResource,
