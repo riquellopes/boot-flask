@@ -17,7 +17,8 @@ class BootFlaskFile(BootFlaskBase):
         try:
             file_name = self.path_generation(self.__name__)
             handle = open(file_name, "w+")
-            handle.write(str(self._content))
+            handle.write(str(self._content.format(
+                project_name=self._project_name)))
             handle.close()
         except IOError as e:
             raise BootFlaskException(e.message)
